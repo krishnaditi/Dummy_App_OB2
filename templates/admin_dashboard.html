@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Admin Dashboard</h1>
+    <p>Here you can manage users and posts.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in users %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.full_name }}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.status }}</td>
+                <td>
+                    <button><a href="/approve_user/{{ i.author_id }}">Approve</a></button>
+                    <button><a href="/reject_user/{{ i.author_id }}">Reject</a></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
