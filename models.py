@@ -23,4 +23,5 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), unique=True)
     content = db.Column(db.Text)
+    status = db.Column(db.String(20), default='open')
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))

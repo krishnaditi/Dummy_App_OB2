@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>User Dashboard</title>
-</head>
-<body>
-    <h1>Welcome to the User Dashboard</h1>
-    <p>Here you can view and manage your posts.</p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<h1>Welcome to the User Dashboard</h1>
+<p>Here you can view and manage your posts.</p>
+<a href="/create_post">Create New Post</a>
+<h2>Your Posts</h2>
+<ul>
+    {% for post in posts %}
+    <li>
+        <strong>{{ post.title }}</strong> ({{ post.status }})<br>
+        {{ post.content }}<br>
+        <a href="/edit_post/{{ post.id }}">Edit</a> |
+        <a href="/delete_post/{{ post.id }}">Delete</a> |
+        {% if post.status == 'open' %}
+        <a href="/close_post/{{ post.id }}">Close</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

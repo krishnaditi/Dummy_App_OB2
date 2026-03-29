@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Dummy App{% endblock %}</title>
+    <style>
+        .flashes {
+            list-style: none;
+            padding: 0;
+        }
+        .flashes li {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+            padding: 10px;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        {% if session.get('user_id') %}
+        <a href="/user_dashboard">User Dashboard</a>
+        <a href="/logout">Logout</a>
+        {% elif session.get('admin_id') %}
+        <a href="/admin_dashboard">Admin Dashboard</a>
+        <a href="/logout">Logout</a>
+        {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        {% endif %}
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>
